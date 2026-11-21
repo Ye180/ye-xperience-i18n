@@ -1,0 +1,154 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`transform sur la fixture > produit le code attendu > app/a-propos/page.tsx 1`] = `
+"import { getTranslations } from 'next-intl/server';
+
+async function getYears() {
+  return new Date().getFullYear() - 1998;
+}
+
+export default async function AboutPage() {
+  const t = await getTranslations('AboutPage');
+  const years = await getYears();
+  return (
+    <article>
+      <h1>{t('aPropos')}</h1>
+      <p>{t('unePetiteEquipePassionneePar')}</p>
+      <p>{years} ans d'expérience</p>
+    </article>
+  );
+}
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > app/contact/page.tsx 1`] = `
+"import { useTranslations } from 'next-intl';
+
+export const metadata = { title: 'Contact' };
+
+export default function ContactPage() {
+  const t = useTranslations('ContactPage');
+  return (
+    <form>
+      <h1>{t('contactezNous')}</h1>
+      <label htmlFor="name">{t('votreNom')}</label>
+      <input id="name" name="name" placeholder={t('jeanDupont')} />
+      <label htmlFor="email">{t('votreEMail')}</label>
+      <input id="email" name="email" type="email" placeholder={t('vousExempleFr')} title={t('adresseEMailValide')} />
+      <textarea name="message" placeholder={t('ecrivezVotreMessageIci')} />
+      <button type="submit">{t('envoyer')}</button>
+    </form>
+  );
+}
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > app/layout.tsx 1`] = `
+"import type { Metadata } from 'next';
+import { Header } from '@/components/Header';
+import './globals.css';
+import { useTranslations } from 'next-intl';
+
+export const metadata: Metadata = {
+  title: 'Atelier Lumière',
+  description: 'Des luminaires artisanaux fabriqués en France.',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations('RootLayout');
+  return (
+    <html lang="fr">
+      <body>
+        <Header />
+        <main>{children}</main>
+        <footer>{t('tousDroitsReserves')}</footer>
+      </body>
+    </html>
+  );
+}
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > app/page.tsx 1`] = `
+"import Link from 'next/link';
+import { Badge } from '@/components/Badge';
+import { Counter } from '@/components/Counter';
+import { useTranslations } from 'next-intl';
+
+export default function HomePage() {
+  const t = useTranslations('HomePage');
+  return (
+    <section>
+      <h1>{t('bienvenueChezAtelierLumiere')}</h1>
+      <Badge />
+      <p>{t('nousFabriquonsDesLampesUniques')}</p>
+      <img src="/logo.svg" alt={t('logoDeLAtelier')} width={48} height={48} />
+      <button type="button" aria-label={t('ajouterAuxFavoris')}>
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="8" cy="8" r="6" />
+        </svg>
+        {t('ajouterAuxFavoris')}
+      </button>
+      {/* i18n-ignore */}
+      <p>Ne pas traduire cette ligne.</p>
+      <p>
+        {t('codePromo')}{' '}<strong>{t('lumiere10')}</strong>
+      </p>
+      <Link href="/contact">{t('nousContacter')}</Link>
+      <Counter />
+    </section>
+  );
+}
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > components/Badge.tsx 1`] = `
+"import { useTranslations } from 'next-intl';
+
+export const Badge = () => {
+  const t = useTranslations('Badge');
+  return <span className="badge">{t('nouveau')}</span>;
+};
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > components/Counter.tsx 1`] = `
+"'use client';
+
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
+export const Counter = () => {
+  const t = useTranslations('Counter');
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>Vous avez cliqué {count} fois</p>
+      <button onClick={() => setCount(count + 1)}>{t('cliquerIci')}</button>
+    </div>
+  );
+};
+"
+`;
+
+exports[`transform sur la fixture > produit le code attendu > components/Header.tsx 1`] = `
+"import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+export function Header() {
+  const t = useTranslations('Header');
+  return (
+    <header>
+      <Link href="/" title={t('retourALAccueil')}>
+        {t('atelierLumiere')}
+      </Link>
+      <nav>
+        <Link href="/">{t('accueil')}</Link>
+        <Link href="/a-propos">{t('aPropos')}</Link>
+        <Link href="/contact">{t('contact')}</Link>
+      </nav>
+    </header>
+  );
+}
+"
+`;

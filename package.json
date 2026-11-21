@@ -1,0 +1,61 @@
+{
+  "name": "ye-xperience-i18n",
+  "version": "0.1.0",
+  "description": "Internationalize an existing Next.js (App Router) project in one command: next-intl setup, JSX text extraction, code rewrite and AI translation (Claude, OpenAI, Gemini, DeepSeek, Mistral, OpenRouter).",
+  "author": "Ouattara Youssouf Emmanuel",
+  "homepage": "https://github.com/Ye180/ye-xperience-i18n#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ye180/ye-xperience-i18n.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ye180/ye-xperience-i18n/issues"
+  },
+  "type": "module",
+  "bin": {
+    "ye-xperience-i18n": "./dist/cli.js",
+    "ye-i18n": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "E2E=1 vitest run",
+    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "keywords": [
+    "nextjs",
+    "next-intl",
+    "i18n",
+    "cli",
+    "claude",
+    "openai",
+    "gemini",
+    "ai",
+    "translation",
+    "internationalization",
+    "localization",
+    "app-router"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.10.0",
+    "@clack/prompts": "^1.9.0",
+    "diff": "^9.0.0",
+    "ts-morph": "^28.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsup": "^9.0.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "packageManager": "pnpm@12.15.0"
+}
