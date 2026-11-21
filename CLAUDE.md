@@ -165,7 +165,10 @@ docs/
 - **Clés orphelines** : après transformation, `usedKeys` collecte les `t('…')` littéraux (et
   t.rich/markup/raw/has) des composants avec traducteur. Les clés source non utilisées sont
   signalées en avertissement, jamais supprimées. Namespace avec un `t(variable)` → ignoré.
-- **Publication** : `files: ["dist"]` (+ README, package.json) ; `prepublishOnly` = typecheck + test + build.
+- **Publication** : `files: ["dist"]` (+ README, README.fr, LICENSE, package.json) ; `prepublishOnly` = typecheck + test + build.
+  v0.1.0 publiée le 2026-11-21 (npm `you_`, GitHub `Ye180/ye-xperience-i18n`). 2FA npm par passkey :
+  `npm publish` doit être lancé dans un vrai terminal (validation navigateur), pas depuis Claude Code.
+  Versions suivantes : `npm version x` + push des tags + release GitHub → `publish.yml` (trusted publishing).
 - **Exclusions** : commentaire contenant `i18n-ignore` → ignore sa ligne et la suivante.
   Globs `ignore` : `**`, `*`, `?` (maison, Node 20) ; un dossier ignoré ignore son contenu.
 - **Hors MVP** (V2) : variables/ICU, `t.rich` (texte mêlé de balises), constantes, metadata, sitemap.
