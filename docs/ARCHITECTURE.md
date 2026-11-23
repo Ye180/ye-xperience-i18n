@@ -118,7 +118,7 @@ Les réponses sont enregistrées dans `.ye-xperience-i18n/config.json`, à commi
 
 Uniquement pendant `init`. Chaque opération vérifie d'abord si elle a déjà été faite.
 
-1. **Routes par langue** : `app/*` est déplacé dans `app/[locale]/*`. Les imports relatifs sont corrigés (`../components` devient `../../components`). Certains fichiers restent à la racine de `app/` : `api/`, `favicon.ico`, `icon`, `robots`, `sitemap`, `manifest`, `global-error`…
+1. **Routes par langue** : `app/*` est déplacé dans `app/[locale]/*`. Les imports relatifs sont corrigés (`../components` devient `../../components`), y compris dans les feuilles de style (`@import`, directives Tailwind `@source`/`@config`/`@plugin`/`@reference`, `url()`). Certains fichiers restent à la racine de `app/` : `api/`, `favicon.ico`, `icon`, `robots`, `sitemap`, `manifest`, `global-error`…
 2. **Layout racine** :
    - il devient `async` ;
    - il lit la langue (`await getLocale()`) et pose `<html lang={locale}>` ;

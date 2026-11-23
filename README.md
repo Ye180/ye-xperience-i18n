@@ -132,7 +132,7 @@ In detail:
 - **Extracted text**: static JSX text and the `alt`, `placeholder`, `title`, `aria-label` attributes.
 - **Keys**: the namespace is the component name (or the route for generic names like `Page`, `Layout`), the key is a short slug of the text. The same text in the same component reuses the same key.
 - **Server and Client Components**: `useTranslations` everywhere, `await getTranslations` in `async` components. `"use client"` files work as is.
-- **Routing**: `app/*` moves to `app/[locale]/*` (except `api/`, `favicon.ico`, `robots`, `sitemap`, `manifest`…), relative imports fixed. `/` redirects to the visitor's language.
+- **Routing**: `app/*` moves to `app/[locale]/*` (except `api/`, `favicon.ico`, `robots`, `sitemap`, `manifest`…), relative imports fixed (CSS included). `/` redirects to the visitor's language.
 - **Root layout**: `<html lang={locale}>`, `NextIntlClientProvider` and `generateStaticParams`.
 - **Created files**: `i18n/routing.ts`, `i18n/request.ts`, `i18n/navigation.ts`, `proxy.ts` (`middleware.ts` before Next 16), next-intl plugin in `next.config`.
 - **Language switcher** (optional): `init` asks where to put it (any corner, or none). It creates `components/LocaleSwitcher.tsx`, a floating `<select>` that keeps the current page, and adds it to the layout. Its label is translated like the rest. It is your code: restyle it freely.

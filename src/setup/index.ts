@@ -85,24 +85,43 @@ function moveToLocale(vfs: VirtualFS, app: string): boolean {
     const rel = file.slice(app.length + 1);
     if (!moved(rel)) continue;
     const target = `${app}/[locale]/${rel}`;
-    if (/\.(tsx?|jsx?|mjs|cjs)$/.test(file)) {
-      const fixed = fixRelativeImports(
-        vfs.read(file)!,
-        file,
-        target,
-        (path) => {
-          const inApp = path.startsWith(`${app}/`)
-            ? path.slice(app.length + 1)
-            : undefined;
-          return inApp !== undefined && moved(inApp)
-            ? `${app}/[locale]/${inApp}`
-            : path;
-        },
-      );
+    const fix = /\.(tsx?|jsx?|mjs|cjs)$/.test(file)
+      ? fixRelativeImports
+      : /\.(css|scss|sass|less)$/.test(file)
+        ? fixCssPaths
+        : undefined;
+    if (fix) {
+      const fixed = fix(vfs.read(file)!, file, target, (path) => {
+        const inApp = path.startsWith(`${app}/`)
+          ? path.slice(app.length + 1)
+          : undefined;
+        return inApp !== undefined && moved(inApp)
+          ? `${app}/[locale]/${inApp}`
+          : path;
+      });
       vfs.move(file, target, fixed);
     } else vfs.move(file, target);
   }
   return true;
+}
+
+/**
+ * Chemins relatifs d'une feuille de style déplacée : @import, @use, @forward,
+ * directives Tailwind v4 (@source, @config, @plugin, @reference) et url().
+ */
+function fixCssPaths(
+  text: string,
+  from: string,
+  to: string,
+  newPath: (path: string) => string,
+): string {
+  return text.replace(
+    /(@(?:import|use|forward|source(?:\s+not)?|config|plugin|reference)\s+(?:url\(\s*)?|url\(\s*)(["']?)(\.\.?\/[^"')\s]*)\2/g,
+    (_, prefix: string, quote: string, value: string) => {
+      const rel = relativeImport(to, newPath(posix.join(posix.dirname(from), value)));
+      return prefix + quote + rel + quote;
+    },
+  );
 }
 
 /** Recalcule les imports relatifs d'un fichier déplacé de `from` vers `to`. */

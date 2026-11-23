@@ -17,6 +17,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 `;
 
+const CSS = `@import 'tailwindcss';
+@import '../config/tailwind.css' layer(base);
+@import url("../theme.css");
+@source "../components";
+@source not '../legacy';
+@plugin "../lib/plugin.js";
+body { background: url(./blog/og.png); mask: url('data:image/svg+xml;utf8,<svg/>'); }
+`;
+
 function project(files: Record<string, string | Buffer>): string {
   const root = mkdtempSync(join(tmpdir(), 'ye-i18n-'));
   for (const [file, content] of Object.entries(files)) {
@@ -34,7 +43,7 @@ describe('setupNextIntl', () => {
       'package.json': pkg(),
       'next.config.mjs': 'const nextConfig = { reactStrictMode: true };\nexport default nextConfig;\n',
       'src/app/layout.tsx': LAYOUT,
-      'src/app/globals.css': 'body {}',
+      'src/app/globals.css': CSS,
       'src/app/page.tsx': "import { x } from '../lib/x';\nimport { y } from './blog/y';\nexport default function Page() { return <p>{x}{y}</p>; }\n",
       'src/app/blog/y.ts': 'export const y = 1;',
       'src/app/blog/og.png': png,
@@ -57,6 +66,14 @@ describe('setupNextIntl', () => {
       'src/app/favicon.ico',
       'src/app/sitemap.ts',
     ]);
+    expect(vfs.read('src/app/[locale]/globals.css')).toBe(`@import 'tailwindcss';
+@import '../../config/tailwind.css' layer(base);
+@import url("../../theme.css");
+@source "../../components";
+@source not '../../legacy';
+@plugin "../../lib/plugin.js";
+body { background: url(./blog/og.png); mask: url('data:image/svg+xml;utf8,<svg/>'); }
+`);
     expect(vfs.read('src/app/[locale]/page.tsx')).toContain("from '../../lib/x'");
     expect(vfs.read('src/app/[locale]/page.tsx')).toContain("from './blog/y'");
     expect(vfs.read('src/app/[locale]/layout.tsx')).toBe(`import './globals.css';

@@ -136,7 +136,7 @@ En détail :
 - **Textes extraits** : le texte JSX statique et les attributs `alt`, `placeholder`, `title`, `aria-label`.
 - **Clés** : le namespace est le nom du composant (ou le chemin de la page pour `Page`, `Layout`…), la clé est un résumé du texte. Un même texte dans un même composant réutilise la même clé.
 - **Server et Client Components** : `useTranslations` partout, `await getTranslations` dans les composants `async`. Les fichiers `"use client"` fonctionnent tels quels.
-- **Routage** : `app/*` est déplacé dans `app/[locale]/*` (sauf `api/`, `favicon.ico`, `robots`, `sitemap`, `manifest`…), avec les imports relatifs corrigés. `/` redirige vers la langue du visiteur.
+- **Routage** : `app/*` est déplacé dans `app/[locale]/*` (sauf `api/`, `favicon.ico`, `robots`, `sitemap`, `manifest`…), avec les imports relatifs corrigés (CSS compris). `/` redirige vers la langue du visiteur.
 - **Layout racine** : `<html lang={locale}>`, `NextIntlClientProvider` et `generateStaticParams`.
 - **Fichiers créés** : `i18n/routing.ts`, `i18n/request.ts`, `i18n/navigation.ts`, `proxy.ts` (`middleware.ts` avant Next 16), plugin next-intl dans `next.config`.
 - **Sélecteur de langue** : `init` demande où le placer (en haut ou en bas, à droite ou à gauche, ou aucun). Il crée `components/LocaleSwitcher.tsx`, un `<select>` flottant qui garde la page courante, et l'ajoute au layout. Son libellé est traduit comme le reste. C'est ton code : modifie librement son style. Relancer `init` avec un autre coin le déplace (sauf si tu as changé son style).

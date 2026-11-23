@@ -98,7 +98,8 @@ docs/
 - **Setup next-intl** (`init` uniquement, idempotent) :
   - `app/*` → `app/[locale]/*` sauf `api/`, favicon.ico, icon, apple-icon, robots, sitemap, manifest,
     global-error, global-not-found. Déjà un `app/[locale]/` → rien. Imports relatifs des fichiers
-    déplacés recalculés (`../components` → `../../components`). Dossiers vidés supprimés au commit.
+    déplacés recalculés (`../components` → `../../components`), CSS compris (@import, @source,
+    @config, @plugin, @reference, @use, @forward, url()). Dossiers vidés supprimés au commit.
     `.next` présent → avertissement `rm -rf .next` (types de routes périmés dans `.next/dev/types`
     cassent `next build` ; l'outil ne touche jamais `.next`).
   - Layout racine : `async`, `const locale = await getLocale()`, `<html lang={locale}>`,
