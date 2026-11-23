@@ -19,4 +19,5 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm install -g npm@latest # trusted publishing needs npm >= 11.5
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build # dist/ must exist before npm validates "bin"
       - run: npm publish --access public
