@@ -1,6 +1,6 @@
 {
   "name": "ye-xperience-i18n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Internationalize an existing Next.js (App Router) project in one command: next-intl setup, JSX text extraction, code rewrite and AI translation (Claude, OpenAI, Gemini, DeepSeek, Mistral, OpenRouter).",
   "author": "Ouattara Youssouf Emmanuel",
   "homepage": "https://github.com/Ye180/ye-xperience-i18n#readme",
